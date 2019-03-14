@@ -1,0 +1,17 @@
+import numpy as np
+w,n=map(int,raw_input().split())
+wt=map(int,raw_input().split())
+k=[]
+k.append(0)
+for i in range(1,n+1):
+    k.append(wt[i-1])
+v=np.zeros(shape=(n+1,w+1), dtype=int)
+for i in range(n+1):
+    for j in range(w+1):
+        v[i][j]=v[i-1][j]
+        if(k[i]<=j):
+            val = v[i-1][j-k[i]]+k[i]
+            if(v[i][j]<val):
+                v[i][j]=val
+print v[n][w]
+        

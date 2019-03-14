@@ -1,0 +1,40 @@
+import numpy as np
+
+def calc(m,n, operation):
+    if operation == '+':
+        return m+n
+    elif operation == '-':
+        return m-n
+    elif operation == '*':
+        return m*n
+    else:
+        pass
+  
+
+expression=(raw_input())
+operation = expression[1:len(expression):2]
+operand = expression[0:len(expression) + 1:2]
+n = len(operation)
+matrix=[]
+a = np.zeros(shape=(n, n), dtype=int)
+b = np.zeros(shape=(n, n), dtype=int)
+for i in range(n):
+    a=(matrix[i][i] for i in range(n))
+    b=(matrix[i][i] for i in range(n))
+   
+calc_min = 0
+calc_max = 0
+for x in range(1, n):
+    for i in range(n - x):
+        j = i + x
+        for k in range(i, j):
+            s = calc(b[i][k], a[k + 1][j], operation[k])
+            t = calc(a[i][k], a[k + 1][j], operation[k])
+            u = calc(b[i][k], b[k + 1][j], operation[k])
+            v = calc(a[i][k], b[k + 1][j], operation[k])
+            calc_min = min(calc_min, s, t, u,v)
+            calc_max = max(calc_max, s, t, u, v)
+
+        a[i][j], b[i][j]= calc_min, calc_max
+        print a[i][j],b[i][j]
+print (b[0][n - 1])
